@@ -1,6 +1,6 @@
 ﻿using MediatR;
 
-namespace Infrastructure
+namespace RecruitR.Infrastructure
 {
     public interface ICommand : IRequest
     {

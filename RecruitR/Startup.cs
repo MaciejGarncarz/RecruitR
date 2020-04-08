@@ -1,18 +1,15 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
+using RecruitR.Persistence;
+using RecruitR.Persistence.Repositories.Projects;
+using RecruitR.Projects.Queries.GetProject;
 
-namespace RecruitR
+namespace RecruitR.API
 {
     public class Startup
     {
@@ -26,9 +23,21 @@ namespace RecruitR
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers();
-
             services.AddMediatR(typeof(Startup));
+            services.AddMediatR(typeof(GetProjectQuery));
+            services.AddEntityFrameworkNpgsql().AddDbContext<RecruitDbContext>(opt =>
+                opt.UseNpgsql(Configuration.GetConnectionString("RecruitConnection")), ServiceLifetime.Transient);
+            services.AddScoped<IProjectsRepository, ProjectsRepository>();
+            services.AddSwaggerGen(options =>
+            {
+                options.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo
+                {
+                    Title = "RecruitR",
+                    Version = "v1",
+                    Description = "RecruitR API",
+                });
+            });
+            services.AddControllers();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -47,7 +56,14 @@ namespace RecruitR
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapControllers();
+                endpoints.MapDefaultControllerRoute();
+            });
+
+            app.UseSwagger();
+
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Sample API");
             });
         }
     }

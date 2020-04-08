@@ -3,11 +3,17 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29613.14
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RecruitR", "RecruitR\RecruitR.csproj", "{238642BD-37D8-4754-818D-253F6EAB918C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RecruitR.API", "RecruitR\RecruitR.API.csproj", "{238642BD-37D8-4754-818D-253F6EAB918C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure", "Infrastructure\Infrastructure.csproj", "{BA360D23-7760-40DF-8503-0F132F7E2788}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RecruitR.Infrastructure", "Infrastructure\RecruitR.Infrastructure.csproj", "{BA360D23-7760-40DF-8503-0F132F7E2788}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Projects", "Projects\Projects.csproj", "{B152D68C-15DB-4E48-886E-FEDB7EAC46E8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RecruitR.Projects", "Projects\RecruitR.Projects.csproj", "{B152D68C-15DB-4E48-886E-FEDB7EAC46E8}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RecruitR.Persistence", "RecruitR.Persistance\RecruitR.Persistence.csproj", "{D2682518-3C37-4605-ADAF-25EFEAF3A11B}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RecruitR.Domain", "RecruitR.Domain\RecruitR.Domain.csproj", "{75DD72AD-BFF4-448E-90CA-3E3345BF254A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RecruitR.User", "RecruitR.User\RecruitR.User.csproj", "{5A14A96F-558D-4D0A-9AC5-19ABA7B4B8B7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +33,18 @@ Global
 		{B152D68C-15DB-4E48-886E-FEDB7EAC46E8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B152D68C-15DB-4E48-886E-FEDB7EAC46E8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B152D68C-15DB-4E48-886E-FEDB7EAC46E8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D2682518-3C37-4605-ADAF-25EFEAF3A11B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D2682518-3C37-4605-ADAF-25EFEAF3A11B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D2682518-3C37-4605-ADAF-25EFEAF3A11B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D2682518-3C37-4605-ADAF-25EFEAF3A11B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{75DD72AD-BFF4-448E-90CA-3E3345BF254A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{75DD72AD-BFF4-448E-90CA-3E3345BF254A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{75DD72AD-BFF4-448E-90CA-3E3345BF254A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{75DD72AD-BFF4-448E-90CA-3E3345BF254A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5A14A96F-558D-4D0A-9AC5-19ABA7B4B8B7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5A14A96F-558D-4D0A-9AC5-19ABA7B4B8B7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5A14A96F-558D-4D0A-9AC5-19ABA7B4B8B7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5A14A96F-558D-4D0A-9AC5-19ABA7B4B8B7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
