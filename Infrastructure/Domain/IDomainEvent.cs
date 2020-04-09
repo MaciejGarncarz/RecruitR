@@ -7,5 +7,6 @@ namespace RecruitR.Infrastructure.Domain
     {
         public Guid CorrelationId { get; }
         public DateTime OccuredOn { get; }
+        public string Message { get; }
     }
 }
