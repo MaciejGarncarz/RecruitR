@@ -18,6 +18,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Projects\RecruitR.Projects.csproj" />
+    <ProjectReference Include="..\RecruitR.Customers\RecruitR.Customers.csproj" />
   </ItemGroup>
 
 

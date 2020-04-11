@@ -29,7 +29,7 @@ namespace RecruitR.Infrastructure.Domain
             var dateRangeChecker = new DateTimeRangeChecker(start, end);
 
             if (!dateRangeChecker.Includes(dateToCheck))
-                throw new LogicException("Birth date out of range");
+                throw new LogicException("Date out of range");
         }
 
     }

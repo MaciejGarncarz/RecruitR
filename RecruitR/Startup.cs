@@ -5,7 +5,9 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using RecruitR.Customers.Commands.RegisterCustomer;
 using RecruitR.Persistence;
+using RecruitR.Persistence.Repositories.Customers;
 using RecruitR.Persistence.Repositories.Projects;
 using RecruitR.Projects.Queries.GetProject;
 
@@ -25,9 +27,11 @@ namespace RecruitR.API
         {
             services.AddMediatR(typeof(Startup));
             services.AddMediatR(typeof(GetProjectQuery));
+            services.AddMediatR(typeof(RegisterCustomerCommand));
             services.AddEntityFrameworkNpgsql().AddDbContext<RecruitDbContext>(opt =>
                 opt.UseNpgsql(Configuration.GetConnectionString("RecruitConnection")), ServiceLifetime.Transient);
             services.AddScoped<IProjectsRepository, ProjectsRepository>();
+            services.AddScoped<ICustomersRepository, CustomersRepository>();
             services.AddSwaggerGen(options =>
             {
                 options.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo

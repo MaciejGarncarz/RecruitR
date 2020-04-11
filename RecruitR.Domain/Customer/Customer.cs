@@ -7,11 +7,10 @@ using RecruitR.Domain.Customer.Entities.Skills;
 using RecruitR.Domain.Customer.ValueObjects;
 using RecruitR.Infrastructure.Domain;
 using RecruitR.Infrastructure.Exceptions;
-using RecruitR.Infrastructure.Helpers;
 
 namespace RecruitR.Domain.Customer
 {
-    public class Customer : Entity, IAggregate
+    public class Customer : Entity, IAggregateRoot
     {
         public CustomerId Id { get; }
         public string FirstName { get; private set; }
@@ -19,22 +18,23 @@ namespace RecruitR.Domain.Customer
         public DateTime BirthDate { get; private set; }
         public string Email { get; private set; }
         public string Phone { get; private set; }
-        public IReadOnlyList<Education> Education => _education.AsReadOnly();
-        public IReadOnlyList<Experience> Experiences => _experiences.AsReadOnly();
-        public IReadOnlyList<Skill> Skills => _skills.AsReadOnly();
-        public IList<string> Links { get; private set; }
+        public IReadOnlyCollection<Education> Education => _education;
+        public IReadOnlyCollection<Experience> Experiences => _experiences;
+        public IReadOnlyCollection<Skill> Skills => _skills;
+        //TODO Dunno about this maybe it is probably value object
+        //public HashSet<string> Links { get; private set; }
         public PersonalInfo Info { get; private set; }
         public bool Status { get; private set; }
 
-        private List<Education> _education { get; set; }
-        private List<Experience> _experiences { get; set; }
-        private List<Skill> _skills { get; set; }
+        private HashSet<Education> _education { get; set; }
+        private HashSet<Experience> _experiences { get; set; }
+        private HashSet<Skill> _skills { get; set; }
 
         public Customer()
         {
-            _education = new List<Education>();
-            _experiences = new List<Experience>();
-            _skills = new List<Skill>();
+            _education = new HashSet<Education>();
+            _experiences = new HashSet<Experience>();
+            _skills = new HashSet<Skill>();
         }
 
         private Customer(
@@ -171,17 +171,88 @@ namespace RecruitR.Domain.Customer
             AddEvent(new PlaceholderDomainEvent(Guid.NewGuid(), DateTime.UtcNow, "Skill has been removed"));
         }
 
-        public void ChangeSkill(Skill skill)
+        public void ChangeSkill(Guid id, decimal experience, string name, uint proficiency)
         {
+            Guard.AgainstEmptyIdentity(id);
+
+            var skill = _skills.SingleOrDefault(x => x.Id == new SkillId(id));
+
             Guard.AgainstNull(skill, nameof(skill));
 
-            skill.ChangeExperience(skill.Experience);
-            skill.ChangeName(skill.Name);
-            skill.ChangeProficiency(skill.Proficiency);
+            skill.ChangeExperience(experience);
+            skill.ChangeName(name);
+            skill.ChangeProficiency(proficiency);
         }
 
+        public void AddExperience(Experience experience)
+        {
+            Guard.AgainstNull(experience, nameof(experience));
 
+            _experiences.Add(experience);
+            AddEvent(new PlaceholderDomainEvent(Guid.NewGuid(), DateTime.UtcNow, "Experience has been added"));
+        }
 
+        public void RemoveExperience(Guid experienceId)
+        {
+            Guard.AgainstEmptyIdentity(experienceId);
+
+            var experienceToRemove = _experiences.SingleOrDefault(x => x.Id == new ExperienceId(experienceId));
+
+            if(experienceToRemove is null)
+                throw new DomainRuleViolation("Customer experience not found");
+
+            _experiences.Remove(experienceToRemove);
+            AddEvent(new PlaceholderDomainEvent(Guid.NewGuid(), DateTime.UtcNow, "Customer experience has been removed"));
+        }
+
+        public void ChangeExperience(Guid experienceId, string name, string description, DateTime start, DateTime? finish)
+        {
+            Guard.AgainstEmptyIdentity(experienceId);
+
+            var experience = _experiences.SingleOrDefault(x => x.Id == new ExperienceId(experienceId));
+
+            Guard.AgainstNull(experience, nameof(experience));
+
+            experience.ChangeName(name);
+            experience.ChangeDescription(description);
+            experience.SetStartDate(start);
+            experience.SetFinishDate(finish);
+        }
+
+        public void AddEducation(Education education)
+        {
+            Guard.AgainstNull(education, nameof(education));
+
+            _education.Add(education);
+            AddEvent(new PlaceholderDomainEvent(Guid.NewGuid(), DateTime.UtcNow, "Education has been added"));
+        }
+
+        public void RemoveEducation(Guid educationId)
+        {
+            Guard.AgainstEmptyIdentity(educationId);
+
+            var educationToRemove = _education.SingleOrDefault(x => x.Id == new EducationId(educationId));
+
+            if (educationToRemove is null)
+                throw new DomainRuleViolation("Customer experience not found");
+
+            _education.Remove(educationToRemove);
+            AddEvent(new PlaceholderDomainEvent(Guid.NewGuid(), DateTime.UtcNow, "Customer education has been removed"));
+        }
+
+        public void ChangeEducation(Guid educationId, string name, string description, DateTime start, DateTime? finish)
+        {
+            Guard.AgainstEmptyIdentity(educationId);
+
+            var education = _education.SingleOrDefault(x => x.Id == new EducationId(educationId));
+
+            Guard.AgainstNull(education, nameof(education));
+
+            education.ChangeName(name);
+            education.ChangeDescription(description);
+            education.SetStartDate(start);
+            education.SetFinishDate(finish);
+        }
     }
 }
 
@@ -195,7 +266,7 @@ namespace RecruitR.Domain.Customer
 // Entities check
 // Value object checks - V
 // Guards - V
-// Write the domain methods !
+// Write the domain methods - V
 // Entity config
 // Write the commands !
 // Write the queries with dapperinio :D

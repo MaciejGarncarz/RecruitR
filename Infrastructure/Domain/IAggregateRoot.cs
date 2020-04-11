@@ -1,6 +1,6 @@
 ﻿namespace RecruitR.Infrastructure.Domain
 {
-    public interface IAggregate
+    public interface IAggregateRoot
     {
         
     }
