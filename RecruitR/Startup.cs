@@ -7,6 +7,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using RecruitR.Customers.Commands.RegisterCustomer;
 using RecruitR.Persistence;
+using RecruitR.Persistence.ConnectionFactory;
 using RecruitR.Persistence.Repositories.Customers;
 using RecruitR.Persistence.Repositories.Projects;
 using RecruitR.Projects.Queries.GetProject;
@@ -32,6 +33,7 @@ namespace RecruitR.API
                 opt.UseNpgsql(Configuration.GetConnectionString("RecruitConnection")), ServiceLifetime.Transient);
             services.AddScoped<IProjectsRepository, ProjectsRepository>();
             services.AddScoped<ICustomersRepository, CustomersRepository>();
+            services.AddScoped<IConnectionFactory, ConnectionFactory>();
             services.AddSwaggerGen(options =>
             {
                 options.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo
@@ -41,7 +43,7 @@ namespace RecruitR.API
                     Description = "RecruitR API",
                 });
             });
-            services.AddControllers();
+            services.AddControllers().AddNewtonsoftJson();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

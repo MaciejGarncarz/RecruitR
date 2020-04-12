@@ -267,6 +267,12 @@ namespace RecruitR.Domain.Customer
 // Value object checks - V
 // Guards - V
 // Write the domain methods - V
-// Entity config
-// Write the commands !
-// Write the queries with dapperinio :D
+// Entity config - V
+// Decide what to do with commands and their serialization
+// Write the commands 
+    // Basic crud customer commands - V
+    // CRUD skills commands
+    // CRUD experiences commands
+    // CRUD education commands
+// Write the queries with dapperinio
+    // Basic crud customer queries
