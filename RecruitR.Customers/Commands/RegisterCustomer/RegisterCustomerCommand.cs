@@ -5,7 +5,6 @@ namespace RecruitR.Customers.Commands.RegisterCustomer
 {
     public class RegisterCustomerCommand : ICommand
     {
-        // TODO make swagger example
         public Guid Id { get; }
         public string FirstName { get; }
         public string LastName { get; }

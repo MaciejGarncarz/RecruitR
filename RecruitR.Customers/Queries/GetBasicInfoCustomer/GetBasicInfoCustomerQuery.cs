@@ -1,4 +1,5 @@
 ﻿using System;
+using RecruitR.Customers.Dtos;
 using RecruitR.Infrastructure;
 
 namespace RecruitR.Customers.Queries.GetBasicInfoCustomer

@@ -21,14 +21,14 @@ namespace RecruitR.Domain.Customer
         public IReadOnlyCollection<Education> Education => _education;
         public IReadOnlyCollection<Experience> Experiences => _experiences;
         public IReadOnlyCollection<Skill> Skills => _skills;
-        //TODO Dunno about this maybe it is probably value object
+        //TODO Dunno about this it is probably value object
         //public HashSet<string> Links { get; private set; }
         public PersonalInfo Info { get; private set; }
         public bool Status { get; private set; }
 
-        private HashSet<Education> _education { get; set; }
-        private HashSet<Experience> _experiences { get; set; }
-        private HashSet<Skill> _skills { get; set; }
+        private HashSet<Education> _education { get; }
+        private HashSet<Experience> _experiences { get; }
+        private HashSet<Skill> _skills { get; }
 
         public Customer()
         {

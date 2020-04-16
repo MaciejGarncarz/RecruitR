@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using Dapper;
 using MediatR;
+using RecruitR.Customers.Dtos;
 using RecruitR.Persistence.ConnectionFactory;
 
 namespace RecruitR.Customers.Queries.GetBasicInfoCustomer
@@ -29,7 +30,7 @@ namespace RecruitR.Customers.Queries.GetBasicInfoCustomer
             FROM public.""Customers""
             WHERE ""Id"" = @CustomerId;";
 
-            var queryResult = await connection.QueryFirstOrDefaultAsync<BasicInfoCustomerDto>(sql, new {CustomerId = request.Id});
+            var queryResult = await connection.QueryFirstOrDefaultAsync<BasicInfoCustomerDto>(sql, new { CustomerId = request.Id});
 
             return queryResult;
         }

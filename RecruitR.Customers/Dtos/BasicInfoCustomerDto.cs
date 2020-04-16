@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace RecruitR.Customers.Queries.GetBasicInfoCustomer
+namespace RecruitR.Customers.Dtos
 {
     public class BasicInfoCustomerDto
     {
