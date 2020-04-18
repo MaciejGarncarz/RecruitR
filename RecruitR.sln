@@ -13,7 +13,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RecruitR.Persistence", "Rec
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RecruitR.Domain", "RecruitR.Domain\RecruitR.Domain.csproj", "{75DD72AD-BFF4-448E-90CA-3E3345BF254A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RecruitR.User", "RecruitR.User\RecruitR.User.csproj", "{5A14A96F-558D-4D0A-9AC5-19ABA7B4B8B7}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RecruitR.Customers", "RecruitR.Customers\RecruitR.Customers.csproj", "{E8C13EA0-E32C-4B43-8E85-6B44A090D0B8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -41,10 +41,10 @@ Global
 		{75DD72AD-BFF4-448E-90CA-3E3345BF254A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{75DD72AD-BFF4-448E-90CA-3E3345BF254A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{75DD72AD-BFF4-448E-90CA-3E3345BF254A}.Release|Any CPU.Build.0 = Release|Any CPU
-		{5A14A96F-558D-4D0A-9AC5-19ABA7B4B8B7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{5A14A96F-558D-4D0A-9AC5-19ABA7B4B8B7}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{5A14A96F-558D-4D0A-9AC5-19ABA7B4B8B7}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{5A14A96F-558D-4D0A-9AC5-19ABA7B4B8B7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E8C13EA0-E32C-4B43-8E85-6B44A090D0B8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E8C13EA0-E32C-4B43-8E85-6B44A090D0B8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E8C13EA0-E32C-4B43-8E85-6B44A090D0B8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E8C13EA0-E32C-4B43-8E85-6B44A090D0B8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

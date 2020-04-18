@@ -5,7 +5,7 @@ using RecruitR.Infrastructure.Domain;
 
 namespace RecruitR.Domain.Projects
 {
-    public class Project : Entity, IAggregate
+    public class Project : Entity, IAggregateRoot
     {
         public ProjectId Id { get; private set; }
         public string Name { get; private set; }

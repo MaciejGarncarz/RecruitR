@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using RecruitR.Domain.Customer;
 using RecruitR.Domain.Projects;
-using RecruitR.Persistence.Configurations.Projects;
+using RecruitR.Persistence.Configurations;
 
 namespace RecruitR.Persistence
 {
@@ -12,10 +13,12 @@ namespace RecruitR.Persistence
         }
 
         public DbSet<Project> Projects { get; set; }
+        public DbSet<Customer> Customers { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfiguration(new ProjectsConfiguration());
+            modelBuilder.ApplyConfiguration(new CustomerConfiguration());
 
             base.OnModelCreating(modelBuilder);
         }

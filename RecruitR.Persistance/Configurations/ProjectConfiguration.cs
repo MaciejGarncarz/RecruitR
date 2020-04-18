@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using RecruitR.Domain.Projects;
 using RecruitR.Domain.Projects.ValueObjects;
 
-namespace RecruitR.Persistence.Configurations.Projects
+namespace RecruitR.Persistence.Configurations
 {
     public class ProjectsConfiguration : IEntityTypeConfiguration<Project>
     {

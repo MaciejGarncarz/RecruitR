@@ -1,11 +1,15 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace RecruitR.Infrastructure.Domain
 {
     public abstract class Entity
     {
         public virtual Guid Id { get; protected set; }
+        public IReadOnlyList<IDomainEvent> Events => _events?.AsReadOnly();
         protected virtual object Actual => this;
+
+        private List<IDomainEvent> _events;
 
         public override bool Equals(object obj)
         {
@@ -46,5 +50,13 @@ namespace RecruitR.Infrastructure.Domain
         {
             return (Actual.GetType().ToString() + Id).GetHashCode();
         }
+
+        public void AddEvent(IDomainEvent @event)
+        {
+            _events ??= new List<IDomainEvent>();
+            _events.Add(@event);
+        }
+
+        public void ClearEvents() => _events.Clear();
     }
 }
