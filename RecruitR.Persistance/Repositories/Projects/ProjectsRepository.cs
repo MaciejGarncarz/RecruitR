@@ -25,7 +25,7 @@ namespace RecruitR.Persistence.Repositories.Projects
             => _context.Projects.Update(project);
 
         public async Task<Project> Get(Guid id)
-            => await _context.Projects.FindAsync(id);
+            => await _context.Projects.SingleOrDefaultAsync(x => x.Id == new ProjectId(id));
 
         public async Task<IEnumerable<Project>> GetAll()
             => await _context.Projects.ToListAsync();
