@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using RecruitR.Persistence;
@@ -9,9 +10,10 @@ using RecruitR.Persistence;
 namespace RecruitR.Persistence.Migrations
 {
     [DbContext(typeof(RecruitDbContext))]
-    partial class RecruitDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200425164344_ProjectReconfiguration")]
+    partial class ProjectReconfiguration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -53,31 +55,6 @@ namespace RecruitR.Persistence.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Customers");
-                });
-
-            modelBuilder.Entity("RecruitR.Domain.Projects.Project", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .HasColumnName("id")
-                        .HasColumnType("uuid");
-
-                    b.Property<string>("Description")
-                        .HasColumnName("description")
-                        .HasColumnType("character varying(2000)")
-                        .HasMaxLength(2000);
-
-                    b.Property<string>("Name")
-                        .HasColumnName("name")
-                        .HasColumnType("character varying(1000)")
-                        .HasMaxLength(1000);
-
-                    b.Property<bool>("RecruitingStatus")
-                        .HasColumnName("recruitingStatus")
-                        .HasColumnType("boolean");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Projects");
                 });
 
             modelBuilder.Entity("RecruitR.Domain.Customer.Customer", b =>
@@ -191,114 +168,6 @@ namespace RecruitR.Persistence.Migrations
 
                             b1.WithOwner()
                                 .HasForeignKey("CustomerId");
-                        });
-                });
-
-            modelBuilder.Entity("RecruitR.Domain.Projects.Project", b =>
-                {
-                    b.OwnsMany("RecruitR.Domain.Projects.Entities.Vacancy", "_vacancies", b1 =>
-                        {
-                            b1.Property<Guid>("Id")
-                                .HasColumnName("id")
-                                .HasColumnType("uuid");
-
-                            b1.Property<string>("Description")
-                                .HasColumnName("description")
-                                .HasColumnType("character varying(2000)")
-                                .HasMaxLength(2000);
-
-                            b1.Property<DateTime>("ExpirationDate")
-                                .HasColumnName("expirationDate")
-                                .HasColumnType("timestamp without time zone");
-
-                            b1.Property<string>("Name")
-                                .HasColumnName("name")
-                                .HasColumnType("character varying(1000)")
-                                .HasMaxLength(1000);
-
-                            b1.Property<Guid>("ProjectId")
-                                .HasColumnType("uuid");
-
-                            b1.Property<int>("Status")
-                                .HasColumnName("status")
-                                .HasColumnType("integer");
-
-                            b1.HasKey("Id");
-
-                            b1.HasIndex("ProjectId");
-
-                            b1.ToTable("Vacancy");
-
-                            b1.WithOwner()
-                                .HasForeignKey("ProjectId");
-                        });
-
-                    b.OwnsMany("RecruitR.Domain.Projects.ValueObjects.Link", "_links", b1 =>
-                        {
-                            b1.Property<Guid>("Id")
-                                .ValueGeneratedOnAdd()
-                                .HasColumnType("uuid");
-
-                            b1.Property<string>("Name")
-                                .HasColumnType("text");
-
-                            b1.Property<Guid>("ProjectId")
-                                .HasColumnType("uuid");
-
-                            b1.Property<string>("Url")
-                                .HasColumnType("text");
-
-                            b1.HasKey("Id");
-
-                            b1.HasIndex("ProjectId");
-
-                            b1.ToTable("Link");
-
-                            b1.WithOwner()
-                                .HasForeignKey("ProjectId");
-                        });
-
-                    b.OwnsOne("RecruitR.Domain.Projects.ValueObjects.ProjectInformation", "ProjectInformation", b1 =>
-                        {
-                            b1.Property<Guid>("ProjectId")
-                                .HasColumnType("uuid");
-
-                            b1.Property<byte>("Category")
-                                .HasColumnName("category")
-                                .HasColumnType("smallint");
-
-                            b1.Property<byte>("Type")
-                                .HasColumnName("type")
-                                .HasColumnType("smallint");
-
-                            b1.HasKey("ProjectId");
-
-                            b1.ToTable("Projects");
-
-                            b1.WithOwner()
-                                .HasForeignKey("ProjectId");
-                        });
-
-                    b.OwnsMany("RecruitR.Domain.Projects.ValueObjects.Technology", "_technologies", b1 =>
-                        {
-                            b1.Property<Guid>("Id")
-                                .ValueGeneratedOnAdd()
-                                .HasColumnType("uuid");
-
-                            b1.Property<string>("Name")
-                                .HasColumnType("text");
-
-                            b1.Property<Guid>("ProjectId")
-                                .HasColumnType("uuid");
-
-                            b1.HasKey("Id");
-
-                            b1.HasIndex("ProjectId");
-
-                            b1.ToTable("Technology");
-
-                            b1.WithOwner()
-                                .HasForeignKey("ProjectId");
                         });
                 });
 #pragma warning restore 612, 618

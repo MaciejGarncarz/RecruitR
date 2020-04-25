@@ -33,28 +33,36 @@ namespace RecruitR.Domain.Projects
             _vacancies = new HashSet<Vacancy>();
         }
 
-        private Project(Guid id, string name, string description, bool recruitingStatus, ProjectInformation projectInformation)
+        private Project(
+            Guid id, 
+            string name, 
+            string description, 
+            bool recruitingStatus, 
+            Enums.Type type,
+            Category category
+            )
         {
             Id = new ProjectId(id);
             Name = name;
             Description = description;
             RecruitingStatus = recruitingStatus;
-            ProjectInformation = projectInformation;
+            ProjectInformation = new ProjectInformation(type, category);
         }
 
         public static Project CreateProject(
             Guid id,
             string description,
-            bool isRecruiting,
+            bool recruitingStatus,
             string name,
-            ProjectInformation projectInformation
+            Enums.Type type, 
+            Category category
             )
         {
             Guard.AgainstEmptyIdentity(id);
             Guard.AgainstEmptyString(name, nameof(name));
             Guard.AgainstEmptyString(description, nameof(description));
 
-            return new Project(id, name, description, isRecruiting, projectInformation);
+            return new Project(id, name, description, recruitingStatus, type, category);
         }
 
         public void ChangeName(string name)
@@ -128,6 +136,7 @@ namespace RecruitR.Domain.Projects
             vacancy.ChangeDescription(description);
             vacancy.ChangeStatus(status);
             vacancy.ChangeExpirationDate(expirationDate);
+            
         }
     }
 }
@@ -136,8 +145,8 @@ namespace RecruitR.Domain.Projects
 // Projects entity configuration(with small Columns) -V
 // Create vacancy entity, all methods and columns - V
 // Vacancy entity configuration also with small columns - V
-// Customer CRUD with dapper
-// Vacancy CRUD with dapper
+// Customer CRUD with dapper - V
+// Vacancy CRUD with dapper - V
 
     // Think about ProjectsCustomers and maybe do it
 // Make hangfire changes status with expiration date

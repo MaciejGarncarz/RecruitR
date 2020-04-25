@@ -16,7 +16,14 @@ namespace RecruitR.Projects.Commands.CreateProject
         }
         public async Task<Unit> Handle(CreateProjectCommand request, CancellationToken cancellationToken)
         {
-            var project = Project.CreateProject(Guid.NewGuid(), "Test", true, "One", "Two", "Maciej", null, null);
+            var project = Project.CreateProject(
+                    request.Id,
+                    request.Description,
+                    request.RecruitingStatus,
+                    request.Name,
+                    request.Type,
+                    request.Category
+            );
 
             await _repository.Add(project);
             await _repository.SaveChanges();

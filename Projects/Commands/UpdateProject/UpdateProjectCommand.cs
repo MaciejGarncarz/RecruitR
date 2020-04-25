@@ -3,9 +3,9 @@ using RecruitR.Domain.Projects.Enums;
 using RecruitR.Infrastructure;
 using Type = RecruitR.Domain.Projects.Enums.Type;
 
-namespace RecruitR.Projects.Commands.CreateProject
+namespace RecruitR.Projects.Commands.UpdateProject
 {
-    public class CreateProjectCommand : ICommand
+    public class UpdateProjectCommand : ICommand
     {
         public Guid Id { get; }
         public string Name { get; }
@@ -14,7 +14,7 @@ namespace RecruitR.Projects.Commands.CreateProject
         public Type Type { get; }
         public Category Category { get; }
 
-        public CreateProjectCommand(Guid id, string name, string description, bool recruitingStatus, Type type, Category category)
+        public UpdateProjectCommand(Guid id, string name, string description, bool recruitingStatus, Type type, Category category)
         {
             Id = id;
             Name = name;

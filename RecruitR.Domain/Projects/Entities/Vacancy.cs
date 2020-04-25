@@ -26,6 +26,11 @@ namespace RecruitR.Domain.Projects.Entities
             ExpirationDate = expirationDate;
         }
 
+        public Vacancy()
+        {
+            
+        }
+
         public void ChangeName(string name)
         {
             Guard.AgainstEmptyString(name, nameof(name));

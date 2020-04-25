@@ -29,7 +29,7 @@ namespace RecruitR.Persistence.Configurations
             
 
             builder.Property(x => x.Description)
-                .HasColumnName("category")
+                .HasColumnName("description")
                 .HasMaxLength(2000);
 
             builder.Property(x => x.RecruitingStatus)
