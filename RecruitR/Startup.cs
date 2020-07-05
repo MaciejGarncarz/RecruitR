@@ -1,3 +1,4 @@
+using MassTransit;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -6,6 +7,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using RecruitR.Customers.Commands.RegisterCustomer;
+using RecruitR.Infrastructure.ExternalBus;
 using RecruitR.Persistence;
 using RecruitR.Persistence.ConnectionFactory;
 using RecruitR.Persistence.Repositories.Customers;
@@ -23,12 +25,23 @@ namespace RecruitR.API
 
         public IConfiguration Configuration { get; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMediatR(typeof(Startup));
-            services.AddMediatR(typeof(GetProjectQuery));
-            services.AddMediatR(typeof(RegisterCustomerCommand));
+            services.AddMediatR(typeof(Startup), typeof(GetProjectQuery), typeof(RegisterCustomerCommand));
+            services.AddMassTransit(x =>
+            {
+                x.AddConsumer<TestMessageConsumer>();
+
+                x.UsingRabbitMq((context, cfg) =>
+                {
+                    cfg.ReceiveEndpoint("test-listener", e =>
+                    {
+                        e.ConfigureConsumer<TestMessageConsumer>(context);
+                    });
+                });
+            });
+            services.AddSingleton<IBus>(provider => provider.GetRequiredService<IBusControl>());
+            services.AddSingleton<IHostedService, BusService>();
             services.AddEntityFrameworkNpgsql().AddDbContext<RecruitDbContext>(opt =>
                 opt.UseNpgsql(Configuration.GetConnectionString("RecruitConnection")), ServiceLifetime.Transient);
             services.AddScoped<IProjectsRepository, ProjectsRepository>();
