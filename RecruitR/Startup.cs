@@ -1,3 +1,5 @@
+using System;
+using Consul;
 using MassTransit;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
@@ -6,7 +8,9 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using RecruitR.API.Extensions;
 using RecruitR.Customers.Commands.RegisterCustomer;
+using RecruitR.Infrastructure.Config;
 using RecruitR.Infrastructure.ExternalBus;
 using RecruitR.Persistence;
 using RecruitR.Persistence.ConnectionFactory;
@@ -40,6 +44,12 @@ namespace RecruitR.API
                     });
                 });
             });
+            services.Configure<ConsulOptions>(Configuration.GetSection("consulOptions"));
+            services.AddSingleton<IConsulClient, ConsulClient>(p => new ConsulClient(consulConfig =>
+            {
+                var address = Configuration["consulOptions:address"];
+                consulConfig.Address = new Uri(address);
+            }));
             services.AddSingleton<IBus>(provider => provider.GetRequiredService<IBusControl>());
             services.AddSingleton<IHostedService, BusService>();
             services.AddEntityFrameworkNpgsql().AddDbContext<RecruitDbContext>(opt =>
@@ -66,7 +76,7 @@ namespace RecruitR.API
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IHostApplicationLifetime lifetime)
         {
             if (env.IsDevelopment())
             {
@@ -85,6 +95,8 @@ namespace RecruitR.API
             {
                 endpoints.MapDefaultControllerRoute();
             });
+
+            app.UseConsul(lifetime);
 
             app.UseSwagger();
 
