@@ -20,7 +20,7 @@ namespace RecruitR.Projects.Commands.Vacancy.UpdateVacancy
             var project = await _repository.Get(request.ProjectId);
 
             if(project is null)
-                throw new EntityNotFound(nameof(project));
+                throw new EntityNotFoundException(nameof(project));
 
             project.UpdateVacancy(request.Id, request.Name, request.Description, request.Status, request.ExpirationDate);
 

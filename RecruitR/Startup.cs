@@ -1,5 +1,6 @@
 using System;
 using Consul;
+using Hellang.Middleware.ProblemDetails;
 using MassTransit;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
@@ -11,7 +12,9 @@ using Microsoft.Extensions.Hosting;
 using RecruitR.API.Extensions;
 using RecruitR.Customers.Commands.RegisterCustomer;
 using RecruitR.Infrastructure.Config;
+using RecruitR.Infrastructure.Exceptions;
 using RecruitR.Infrastructure.ExternalBus;
+using RecruitR.Infrastructure.ProblemDetails;
 using RecruitR.Persistence;
 using RecruitR.Persistence.ConnectionFactory;
 using RecruitR.Persistence.Repositories.Customers;
@@ -45,6 +48,10 @@ namespace RecruitR.API
                 });
             });
             services.Configure<ConsulOptions>(Configuration.GetSection("consulOptions"));
+            services.AddProblemDetails(setup =>
+                {
+                    setup.Map<EntityNotFoundException>(ex => new EntityNotFoundDetails(ex));
+                });
             services.AddSingleton<IConsulClient, ConsulClient>(p => new ConsulClient(consulConfig =>
             {
                 var address = Configuration["consulOptions:address"];
@@ -83,6 +90,9 @@ namespace RecruitR.API
                 app.UseDeveloperExceptionPage();
             }
 
+            app.UseProblemDetails();
+
+
             app.UseCors("MyPolicy");
 
             app.UseHttpsRedirection();
@@ -97,6 +107,7 @@ namespace RecruitR.API
             });
 
             app.UseConsul(lifetime);
+
 
             app.UseSwagger();
 

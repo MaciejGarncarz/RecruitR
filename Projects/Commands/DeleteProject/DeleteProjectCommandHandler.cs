@@ -20,7 +20,7 @@ namespace RecruitR.Projects.Commands.DeleteProject
             var project = await _repository.Get(request.Id);
 
             if(project is null)
-                throw new EntityNotFound(nameof(project));
+                throw new EntityNotFoundException(nameof(project));
 
             _repository.Delete(project);
             await _repository.SaveChanges();

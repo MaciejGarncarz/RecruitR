@@ -20,7 +20,7 @@ namespace RecruitR.Customers.Commands.UpdateCustomer
             var customer = await _repository.Get(request.Id);
 
             if(customer is null)
-                throw new EntityNotFound(nameof(customer));
+                throw new EntityNotFoundException(nameof(customer));
 
             customer.ChangeFirstName(request.FirstName);
             customer.ChangeLastName(request.LastName);

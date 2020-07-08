@@ -118,7 +118,7 @@ namespace RecruitR.Domain.Projects
             var vacancy = _vacancies.SingleOrDefault(x => x.Id == new VacancyId(vacancyId));
 
             if(vacancy is null)
-                throw new EntityNotFound(nameof(vacancy));
+                throw new EntityNotFoundException(nameof(vacancy));
 
             _vacancies.Remove(vacancy);
 
@@ -130,7 +130,7 @@ namespace RecruitR.Domain.Projects
             var vacancy = _vacancies.SingleOrDefault(x => x.Id == new VacancyId(id));
 
             if(vacancy is null)
-                throw new EntityNotFound(nameof(vacancy));
+                throw new EntityNotFoundException(nameof(vacancy));
 
             vacancy.ChangeName(name);
             vacancy.ChangeDescription(description);

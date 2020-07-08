@@ -20,7 +20,7 @@ namespace RecruitR.Projects.Commands.Vacancy.DeleteVacancy
             var project = await _repository.Get(request.ProjectId);
 
             if(project is null)
-                throw new EntityNotFound(nameof(project));
+                throw new EntityNotFoundException(nameof(project));
 
             project.RemoveVacancy(request.Id);
 

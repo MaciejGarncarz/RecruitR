@@ -1,17 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using Consul;
 using MassTransit;
 using Microsoft.AspNetCore.Mvc;
+using RecruitR.Infrastructure.Exceptions;
 using RecruitR.Infrastructure.ExternalBus;
 
 namespace RecruitR.API.Controllers
 {
     [ApiController]
     [Route("api/dev")]
-    public class DevelopmentController
+    public class DevelopmentController : ControllerBase
     {
         private readonly IBus _bus;
 
@@ -27,13 +27,12 @@ namespace RecruitR.API.Controllers
         }
 
         [HttpGet("consul")]
-        public IEnumerable<string> GetConsulConfig()
+        public IActionResult GetConsulConfig()
         {
             var consulClient = new ConsulClient(c => c.Address = new Uri("http://localhost:8500"));
             var services = consulClient.Agent.Services().Result.Response;
 
-            return services.Keys;
-
+            return Ok(services.Keys);
         }
 
         

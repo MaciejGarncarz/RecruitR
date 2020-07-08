@@ -20,7 +20,7 @@ namespace RecruitR.Customers.Commands.DeleteCustomer
             var customer = await _repository.Get(request.Id);   
 
             if(customer is null)
-                throw new EntityNotFound(nameof(customer));
+                throw new EntityNotFoundException(nameof(customer));
 
             _repository.Delete(customer);
             await _repository.SaveChanges();

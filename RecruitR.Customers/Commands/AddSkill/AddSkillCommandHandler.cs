@@ -21,7 +21,7 @@ namespace RecruitR.Customers.Commands.AddSkill
             var customer = await _repository.Get(request.CustomerId);
 
             if(customer is null)
-                throw new EntityNotFound(nameof(customer));
+                throw new EntityNotFoundException(nameof(customer));
 
             customer.AddSkill(new Skill(request.Id, request.Name, request.Proficiency, request.Experience));
 

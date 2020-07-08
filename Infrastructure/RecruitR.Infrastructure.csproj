@@ -6,6 +6,7 @@
 
   <ItemGroup>
     <PackageReference Include="Consul" Version="1.6.1.1" />
+    <PackageReference Include="Hellang.Middleware.ProblemDetails" Version="5.1.0" />
     <PackageReference Include="MassTransit.Extensions.DependencyInjection" Version="7.0.0" />
     <PackageReference Include="MassTransit.RabbitMQ" Version="7.0.0" />
     <PackageReference Include="MediatR" Version="8.0.1" />

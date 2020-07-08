@@ -2,15 +2,17 @@
 
 namespace RecruitR.Infrastructure.Exceptions
 {
-    public class EntityNotFound : Exception
+    public class EntityNotFoundException : Exception
     {
         public string EntityName { get; }
         public string Message { get; }
+        public string Type { get; }
 
-        public EntityNotFound(string entityName)
+        public EntityNotFoundException(string entityName)
         {
             EntityName = entityName;
             Message = $"{entityName} not found";
+            Type = ExceptionType.Database;
         }
     }
 }

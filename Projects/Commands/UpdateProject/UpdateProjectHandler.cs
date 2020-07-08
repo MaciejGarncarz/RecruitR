@@ -21,7 +21,7 @@ namespace RecruitR.Projects.Commands.UpdateProject
             var project = await _repository.Get(request.Id);
 
             if (project is null)
-                throw new EntityNotFound(nameof(project));
+                throw new EntityNotFoundException(nameof(project));
 
             project.ChangeName(request.Name);
             project.ChangeDescription(request.Description);
